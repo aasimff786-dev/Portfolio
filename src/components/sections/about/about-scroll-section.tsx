@@ -7,26 +7,10 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Placeholder sequence: Lorem Picsum's seeded URLs return a distinct, stable
-// photo per seed, which gives us 47 real (if unrelated) frames for the
-// scroll-scrub without needing an account. `seed-${index}` keeps each frame
-// deterministic across reloads. On phones we never need full-res frames for a
-// scroll-scrub, so we cap the requested width per device.
-// TODO: swap this for your own 47 sequential frames (e.g. hosted on
-// ImageKit/Cloudinary/S3) for a real scrubbing animation instead of a slideshow.
+// Real scroll-scrub sequence — 47 frames extracted from Mohd Aasim's own
+// footage, stored locally in /public/about-frames/.
 function buildImageUrl(index: number): string {
-  const width =
-    typeof window === "undefined"
-      ? 1200
-      : Math.round(
-          Math.min(
-            window.innerWidth * Math.min(window.devicePixelRatio || 1, 2),
-            window.innerWidth < 768 ? 900 : 1920,
-          ),
-        );
-  const height = Math.round(width * 1.3);
-
-  return `https://picsum.photos/seed/about-section-${index}/${width}/${height}`;
+  return `/about-frames/frame-${String(index).padStart(2, "0")}.jpg`;
 }
 
 const aboutSectionImages = Array.from({ length: 47 }, (_, i) => ({ index: i }));
