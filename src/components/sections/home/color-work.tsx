@@ -46,6 +46,8 @@ const colorWork: ColorWorkItem[] = [
       "https://placehold.co/1280x720/1a1a1a/8a8a8a?text=RAW+FOOTAGE",
     afterSrc:
       "https://placehold.co/1280x720/0ea5e9/07172a?text=GRADED+FOOTAGE",
+    beforeVimeoId: "1214954622",
+    afterVimeoId: "1214954817",
     beforeLabel: "RAW",
     afterLabel: "GRADED",
   },
