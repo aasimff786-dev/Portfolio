@@ -11,6 +11,7 @@ import ShowReel from "@/components/sections/showreel";
 import CollabSec from "@/components/sections/home/collab-section";
 import AboutScrollSection from "@/components/sections/about/about-scroll-section";
 import GraphicDesignSection from "@/components/sections/home/graphic-design";
+import ColorWorkSection from "@/components/sections/home/color-work";
 
 export default function Home() {
   // The Preloader owns the (60fps) load-progress state internally so those
@@ -59,6 +60,9 @@ export default function Home() {
 
       {/* Graphic Design Showcase */}
       <GraphicDesignSection />
+
+      {/* Color Correction & Grading */}
+      <ColorWorkSection />
 
       <CollabSec />
 

@@ -9,40 +9,22 @@ import { X } from "lucide-react";
 // Each item needs: src (image url), title, tag (category used for filtering), description.
 const graphicDesignWork = [
   {
-    src: "https://placehold.co/600x750/0284c7/f0f9ff?text=Brand+Identity",
-    title: "Brand Identity",
-    tag: "Branding",
-    description: "Logo & brand system design",
+    src: "/graphic-design/muze-headphones-ad.jpeg",
+    title: "Muze Headphones",
+    tag: "Ad Design",
+    description: "Product ad campaign design",
   },
   {
-    src: "https://placehold.co/600x750/0ea5e9/f0f9ff?text=Instagram+Post",
-    title: "Instagram Post",
-    tag: "Social Media",
-    description: "Social media creative",
-  },
-  {
-    src: "https://placehold.co/600x750/38bdf8/07172a?text=Event+Poster",
-    title: "Event Poster",
+    src: "/graphic-design/green-fashion-poster.jpeg",
+    title: "Gen Green",
     tag: "Poster",
-    description: "Event promotional poster",
+    description: "Fashion campaign poster",
   },
   {
-    src: "https://placehold.co/600x750/7dd3fc/07172a?text=YouTube+Thumbnail",
-    title: "YouTube Thumbnail",
-    tag: "Thumbnail",
-    description: "Click-worthy video thumbnail",
-  },
-  {
-    src: "https://placehold.co/600x750/0284c7/f0f9ff?text=Promo+Banner",
-    title: "Promo Banner",
-    tag: "Social Media",
-    description: "Marketing banner design",
-  },
-  {
-    src: "https://placehold.co/600x750/0ea5e9/f0f9ff?text=Movie+Poster",
-    title: "Movie Poster Concept",
-    tag: "Poster",
-    description: "Fan-made film poster",
+    src: "/graphic-design/infographic-template.jpeg",
+    title: "Infographic Template",
+    tag: "Infographic",
+    description: "Data visualization design",
   },
 ];
 
