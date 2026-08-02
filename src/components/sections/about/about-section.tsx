@@ -298,33 +298,20 @@ const AboutSection = () => {
             {/* Metric cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <MetricCard
-                value={5}
-                suffix="+ yrs"
+                value={1}
+                suffix="+ yr"
                 label="Years of Experience"
-                description="Half a decade honing the craft of visual storytelling across global brands and viral campaigns."
+                description="A year spent honing the craft of visual storytelling — one project at a time."
                 delay={0.15}
               />
 
               <MetricCard
-                value={100}
+                value={25}
                 suffix="+"
-                label="Projects Completed"
-                description="From FIFA tournaments to esports highlights — diverse, delivered, and always ahead of deadline."
+                label="Clients Worked With"
+                description="Video edits, motion graphics, and designs delivered — always ahead of deadline."
                 delay={0.25}
               />
-
-              {/* Revenue — full-width highlighted */}
-              <div className="sm:col-span-2">
-                <MetricCard
-                  prefix="$"
-                  value={3}
-                  suffix="M+"
-                  label="Revenue Achieved"
-                  description="Revenue generated for clients through high-conversion content, brand campaigns, and viral media strategies that move the needle."
-                  highlight
-                  delay={0.35}
-                />
-              </div>
             </div>
 
             {/* Footnote */}
