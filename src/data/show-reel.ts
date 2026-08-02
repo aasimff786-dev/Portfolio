@@ -1,6 +1,9 @@
+export type VideoProvider = "vimeo" | "youtube";
+
 export interface showReelI {
   title: string;
-  vimeoId: string;
+  provider: VideoProvider;
+  videoId: string;
   thumbnail: string;
   stats: {
     views: number;
@@ -15,12 +18,18 @@ function vimeoThumb(id: string) {
   return `https://vumbnail.com/${id}_large.jpg`;
 }
 
-// Example project data — replace with your own Vimeo IDs, titles, and stats.
+/** High-res YouTube thumbnail (no API key needed). */
+function youtubeThumb(id: string) {
+  return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+}
+
+// Example project data — replace with your own Vimeo/YouTube IDs, titles, and stats.
 export const showRealData: showReelI[] = [
   {
     title: "Project One",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
-    thumbnail: vimeoThumb("000000000"),
+    provider: "youtube",
+    videoId: "A08Ur5F8JGc", // https://youtu.be/A08Ur5F8JGc
+    thumbnail: youtubeThumb("A08Ur5F8JGc"),
     stats: {
       views: 100000,
       likes: 10000,
@@ -30,7 +39,8 @@ export const showRealData: showReelI[] = [
   },
   {
     title: "Project Two",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
+    provider: "vimeo",
+    videoId: "000000000", // TODO: replace with your Vimeo ID
     thumbnail: vimeoThumb("000000000"),
     stats: {
       views: 100000,
@@ -41,7 +51,8 @@ export const showRealData: showReelI[] = [
   },
   {
     title: "Project Three",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
+    provider: "vimeo",
+    videoId: "000000000", // TODO: replace with your Vimeo ID
     thumbnail: vimeoThumb("000000000"),
     stats: {
       views: 100000,
@@ -52,7 +63,8 @@ export const showRealData: showReelI[] = [
   },
   {
     title: "Project Four",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
+    provider: "vimeo",
+    videoId: "000000000", // TODO: replace with your Vimeo ID
     thumbnail: vimeoThumb("000000000"),
     stats: {
       views: 100000,
@@ -63,7 +75,8 @@ export const showRealData: showReelI[] = [
   },
   {
     title: "Project Five",
-    vimeoId: "000000000", // TODO: replace with your Vimeo ID
+    provider: "vimeo",
+    videoId: "000000000", // TODO: replace with your Vimeo ID
     thumbnail: vimeoThumb("000000000"),
     stats: {
       views: 100000,

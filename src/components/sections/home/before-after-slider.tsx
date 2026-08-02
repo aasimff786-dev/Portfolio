@@ -7,8 +7,69 @@ interface BeforeAfterSliderProps {
   afterSrc: string; // image or video poster for the "corrected/graded" side
   beforeVideo?: string; // optional: mp4/webm url for raw footage
   afterVideo?: string; // optional: mp4/webm url for corrected/graded footage
+  beforeVimeoId?: string; // optional: Vimeo video ID for raw footage
+  afterVimeoId?: string; // optional: Vimeo video ID for corrected/graded footage
   beforeLabel?: string;
   afterLabel?: string;
+}
+
+const vimeoEmbedSrc = (id: string) =>
+  `https://player.vimeo.com/video/${id}?background=1&autoplay=1&loop=1&muted=1&dnt=1`;
+
+/** Renders an image, raw video, or background Vimeo embed — all full-bleed cover. */
+function MediaLayer({
+  vimeoId,
+  video,
+  image,
+  label,
+}: {
+  vimeoId?: string;
+  video?: string;
+  image: string;
+  label: string;
+}) {
+  if (vimeoId) {
+    return (
+      <iframe
+        src={vimeoEmbedSrc(vimeoId)}
+        loading="lazy"
+        className="pointer-events-none"
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          width: "max(100%, 177.78vh)",
+          height: "max(100%, 56.25vw)",
+          transform: "translate(-50%, -50%)",
+          border: 0,
+        }}
+        allow="autoplay; fullscreen"
+        title={label}
+      />
+    );
+  }
+  if (video) {
+    return (
+      <video
+        src={video}
+        poster={image}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+    );
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={image}
+      alt={label}
+      className="absolute inset-0 w-full h-full object-cover"
+      draggable={false}
+    />
+  );
 }
 
 const BeforeAfterSlider = ({
@@ -16,6 +77,8 @@ const BeforeAfterSlider = ({
   afterSrc,
   beforeVideo,
   afterVideo,
+  beforeVimeoId,
+  afterVimeoId,
   beforeLabel = "RAW",
   afterLabel = "CORRECTED",
 }: BeforeAfterSliderProps) => {
@@ -56,65 +119,28 @@ const BeforeAfterSlider = ({
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerUp}
       >
-        {/* AFTER (full width, base layer) */}
+        {/* AFTER — full-bleed base layer, same size/position always */}
         <div className="absolute inset-0">
-          {afterVideo ? (
-            <video
-              src={afterVideo}
-              poster={afterSrc}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={afterSrc}
-              alt={afterLabel}
-              className="w-full h-full object-cover"
-              draggable={false}
-            />
-          )}
+          <MediaLayer
+            vimeoId={afterVimeoId}
+            video={afterVideo}
+            image={afterSrc}
+            label={afterLabel}
+          />
         </div>
 
-        {/* BEFORE (clipped to slider position) */}
+        {/* BEFORE — identical full-bleed layer, masked via clip-path so it
+            never resizes/re-centers itself as the slider moves. */}
         <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ width: `${position}%` }}
+          className="absolute inset-0"
+          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
         >
-          {beforeVideo ? (
-            <video
-              src={beforeVideo}
-              poster={beforeSrc}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="h-full object-cover"
-              style={{
-                width: wrapRef.current?.offsetWidth
-                  ? `${wrapRef.current.offsetWidth}px`
-                  : "100%",
-                maxWidth: "none",
-              }}
-            />
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={beforeSrc}
-              alt={beforeLabel}
-              className="h-full object-cover"
-              style={{
-                width: wrapRef.current?.offsetWidth
-                  ? `${wrapRef.current.offsetWidth}px`
-                  : "100%",
-                maxWidth: "none",
-              }}
-              draggable={false}
-            />
-          )}
+          <MediaLayer
+            vimeoId={beforeVimeoId}
+            video={beforeVideo}
+            image={beforeSrc}
+            label={beforeLabel}
+          />
         </div>
 
         {/* Labels */}

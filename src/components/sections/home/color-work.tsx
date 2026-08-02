@@ -3,11 +3,24 @@
 import { motion } from "framer-motion";
 import BeforeAfterSlider from "./before-after-slider";
 
+interface ColorWorkItem {
+  id: string;
+  title: string;
+  tagline: string;
+  context: string;
+  beforeSrc: string;
+  afterSrc: string;
+  beforeVimeoId?: string;
+  afterVimeoId?: string;
+  beforeLabel: string;
+  afterLabel: string;
+}
+
 // TODO: Replace these placeholder images/videos with your own raw vs
 // corrected/graded footage. You can pass beforeVideo/afterVideo (mp4/webm
 // urls) for real video comparisons — poster images below are shown until
 // then and as a fallback while the video loads.
-const colorWork = [
+const colorWork: ColorWorkItem[] = [
   {
     id: "correction",
     title: "Color Correction",
@@ -18,6 +31,8 @@ const colorWork = [
       "https://placehold.co/1280x720/1a1a1a/8a8a8a?text=RAW+FOOTAGE",
     afterSrc:
       "https://placehold.co/1280x720/0284c7/f0f9ff?text=CORRECTED+FOOTAGE",
+    beforeVimeoId: "1201812520",
+    afterVimeoId: "1201815968",
     beforeLabel: "RAW",
     afterLabel: "CORRECTED",
   },
@@ -82,6 +97,8 @@ const ColorWorkSection = () => {
               <BeforeAfterSlider
                 beforeSrc={item.beforeSrc}
                 afterSrc={item.afterSrc}
+                beforeVimeoId={item.beforeVimeoId}
+                afterVimeoId={item.afterVimeoId}
                 beforeLabel={item.beforeLabel}
                 afterLabel={item.afterLabel}
               />

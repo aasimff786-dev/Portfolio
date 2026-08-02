@@ -11,6 +11,12 @@ interface VideoModalProps {
 }
 
 export function VideoModal({ item, onClose }: VideoModalProps) {
+  const embedSrc = item
+    ? item.provider === "youtube"
+      ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&modestbranding=1&rel=0`
+      : `https://player.vimeo.com/video/${item.videoId}?autoplay=1&byline=0&title=0&dnt=1`
+    : "";
+
   return (
     <Dialog open={!!item} onOpenChange={(open) => !open && onClose()}>
       <DialogPortal>
@@ -25,11 +31,11 @@ export function VideoModal({ item, onClose }: VideoModalProps) {
             {item?.title ?? "Video"}
           </DialogPrimitive.Title>
 
-          {/* Full-viewport Vimeo player with controls */}
+          {/* Full-viewport player with controls */}
           {item && (
             <iframe
-              key={item.vimeoId}
-              src={`https://player.vimeo.com/video/${item.vimeoId}?autoplay=1&byline=0&title=0&dnt=1`}
+              key={item.videoId}
+              src={embedSrc}
               className="h-full w-full"
               style={{ border: 0 }}
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"

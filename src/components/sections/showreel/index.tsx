@@ -14,10 +14,10 @@ import { ReelCard } from "./reel-card";
 import { VideoModal } from "./video-modal";
 
 /**
- * Persistent Vimeo backdrop for a single slide.
+ * Persistent video backdrop for a single slide (Vimeo or YouTube).
  * Mounted once and never destroyed — only opacity toggles.
  */
-function VimeoBackdrop({
+function VideoBackdrop({
   item,
   isActive,
   mountVideo,
@@ -25,9 +25,14 @@ function VimeoBackdrop({
   item: showReelI;
   isActive: boolean;
   /** When false we render only the thumbnail — no iframe. On phones we pass
-   *  false for non-active slides so at most one Vimeo player is ever alive. */
+   *  false for non-active slides so at most one video player is ever alive. */
   mountVideo: boolean;
 }) {
+  const embedSrc =
+    item.provider === "youtube"
+      ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&mute=1&loop=1&playlist=${item.videoId}&controls=0&modestbranding=1&playsinline=1&rel=0`
+      : `https://player.vimeo.com/video/${item.videoId}?background=1&autoplay=1&loop=1&muted=1&dnt=1`;
+
   return (
     <div
       className="absolute inset-0 pointer-events-none"
@@ -45,10 +50,10 @@ function VimeoBackdrop({
         draggable={false}
       />
 
-      {/* Vimeo background player — autoplays muted, no UI */}
+      {/* Background player — autoplays muted, no UI */}
       {mountVideo && (
         <iframe
-          src={`https://player.vimeo.com/video/${item.vimeoId}?background=1&autoplay=1&loop=1&muted=1&dnt=1`}
+          src={embedSrc}
           loading="lazy"
           style={{
             position: "absolute",
@@ -202,7 +207,7 @@ export default function ShowReel() {
           // keep only the active player alive to avoid 3 concurrent iframes.
           const mountVideo = isTouch ? i === active : true;
           return (
-            <VimeoBackdrop
+            <VideoBackdrop
               key={`backdrop-${i}`}
               item={item}
               isActive={i === active}
