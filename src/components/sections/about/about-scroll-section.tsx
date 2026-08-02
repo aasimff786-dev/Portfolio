@@ -352,7 +352,7 @@ const AboutScrollSection = () => {
                 data-reveal-line
                 className="mb-8 flex flex-wrap items-center gap-3 opacity-0"
               >
-                {["CREATIVE DIRECTION", "MOTION", "ANIMATION", "EDIT"].map(
+                {["CREATIVE DIRECTION", "MOTION", "ANIMATION", "EDIT", "GRAPHIC DESIGNING"].map(
                   (discipline, i) => (
                     <span
                       key={discipline}

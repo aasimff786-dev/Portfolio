@@ -15,7 +15,7 @@ interface BeforeAfterSliderProps {
 }
 
 const vimeoEmbedSrc = (id: string) =>
-  `https://player.vimeo.com/video/${id}?background=1&autoplay=0&loop=1&muted=1&dnt=1`;
+  `https://player.vimeo.com/video/${id}?background=1&autoplay=1&loop=1&muted=1&dnt=1`;
 
 /** How often (ms) we re-check and correct any drift between the two players. */
 const SYNC_INTERVAL_MS = 1500;
@@ -80,26 +80,23 @@ const BeforeAfterSlider = ({
     Promise.all([beforePlayer.ready(), afterPlayer.ready()])
       .then(() => {
         if (cancelled) return;
-        // Make sure both start from frame zero, then play together.
-        return Promise.all([
-          beforePlayer.setCurrentTime(0),
-          afterPlayer.setCurrentTime(0),
-        ]);
-      })
-      .then(() => {
-        if (cancelled) return;
-        return Promise.all([beforePlayer.play(), afterPlayer.play()]);
-      })
-      .then(() => {
-        if (cancelled) return;
-        // Periodically correct any drift between the two — network/buffering
-        // can nudge them apart over time even though they started together.
+        // Both iframes already autoplay on their own (background=1&autoplay=1).
+        // We just periodically correct any drift between them — network or
+        // buffering differences can nudge them apart a moment after they start.
         syncTimer = setInterval(async () => {
           try {
-            const [beforeTime, afterTime] = await Promise.all([
-              beforePlayer.getCurrentTime(),
-              afterPlayer.getCurrentTime(),
-            ]);
+            const [beforeTime, afterTime, beforePaused, afterPaused] =
+              await Promise.all([
+                beforePlayer.getCurrentTime(),
+                afterPlayer.getCurrentTime(),
+                beforePlayer.getPaused(),
+                afterPlayer.getPaused(),
+              ]);
+
+            // If either got paused (e.g. tab was backgrounded), nudge both to play.
+            if (beforePaused) beforePlayer.play().catch(() => {});
+            if (afterPaused) afterPlayer.play().catch(() => {});
+
             const drift = afterTime - beforeTime;
             if (Math.abs(drift) > DRIFT_TOLERANCE_S) {
               await beforePlayer.setCurrentTime(afterTime);
@@ -110,8 +107,8 @@ const BeforeAfterSlider = ({
         }, SYNC_INTERVAL_MS);
       })
       .catch(() => {
-        // Autoplay can be blocked or the player can fail to load — the
-        // poster image fallback is still visible, so we just no-op here.
+        // Player can fail to load — the poster image fallback is still
+        // visible, so we just no-op here.
       });
 
     return () => {
