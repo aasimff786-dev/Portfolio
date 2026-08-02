@@ -6,7 +6,8 @@ const nextConfig: NextConfig = {
     domains: [
       "images.unsplash.com",
       "framerusercontent.com",
-      "avatar.vercel.sh"
+      "avatar.vercel.sh",
+      "placehold.co"
     ],
   },
   eslint: {
