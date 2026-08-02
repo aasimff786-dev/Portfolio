@@ -12,6 +12,7 @@ import CollabSec from "@/components/sections/home/collab-section";
 import AboutScrollSection from "@/components/sections/about/about-scroll-section";
 import GraphicDesignSection from "@/components/sections/home/graphic-design";
 import ColorWorkSection from "@/components/sections/home/color-work";
+import ToolsSection from "@/components/sections/home/tools-section";
 
 export default function Home() {
   // The Preloader owns the (60fps) load-progress state internally so those
@@ -57,6 +58,9 @@ export default function Home() {
         {/* <ViralShowcase /> */}
         <TimelineDemo />
       </section>
+
+      {/* Software / Tools */}
+      <ToolsSection />
 
       {/* Graphic Design Showcase */}
       <GraphicDesignSection />
