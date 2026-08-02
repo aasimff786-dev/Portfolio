@@ -4,12 +4,12 @@ export default function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Your Name",
+    name: "Mohd Aasim",
     url: BASE_URL,
     image: OG_IMAGE,
     description:
-      "Professional web developer and designer specializing in modern web technologies and creative digital solutions.",
-    jobTitle: "Web Developer & Designer",
+      "Video Editor, Motion Designer and Graphic Designer from Modinagar, crafting brand films, social reels, and cinematic edits.",
+    jobTitle: "Video Editor & Motion Designer",
     sameAs: [
       // Add your social media profiles
       "https://github.com/yourusername",
@@ -17,26 +17,26 @@ export default function StructuredData() {
       "https://twitter.com/yourhandle",
     ],
     knowsAbout: [
-      "Web Development",
-      "Frontend Development",
-      "Next.js",
-      "React",
-      "TypeScript",
-      "UI/UX Design",
-      "Full Stack Development",
+      "Video Editing",
+      "Motion Graphics",
+      "Motion Design",
+      "Graphic Design",
+      "Color Grading",
+      "Visual Storytelling",
+      "Brand Films",
     ],
   };
 
   const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Your Name Portfolio",
+    name: "Mohd Aasim Portfolio",
     url: BASE_URL,
     description:
-      "Professional portfolio showcasing web development, design, and digital solutions.",
+      "Portfolio showcasing video editing, motion design, and graphic design work.",
     author: {
       "@type": "Person",
-      name: "Your Name",
+      name: "Mohd Aasim",
     },
     potentialAction: {
       "@type": "SearchAction",
@@ -51,7 +51,7 @@ export default function StructuredData() {
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "Your Name",
+    name: "Mohd Aasim",
     image: `${BASE_URL}/md-red-logo.svg`,
     "@id": BASE_URL,
     url: BASE_URL,

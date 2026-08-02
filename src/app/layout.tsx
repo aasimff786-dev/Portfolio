@@ -28,27 +28,26 @@ const cormorantGaramond = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Your Name - Professional Portfolio & Digital Services",
-    template: "%s | Your Name",
+    default: "Mohd Aasim - Video Editor, Motion Designer & Graphic Designer",
+    template: "%s | Mohd Aasim",
   },
   description:
-    "Professional portfolio showcasing web development, design, and digital solutions. Expert in modern web technologies, creative design, and innovative digital experiences.",
+    "Portfolio of Mohd Aasim — a Video Editor, Motion Designer and Graphic Designer from Modinagar, crafting brand films, social reels, and cinematic edits with technical precision.",
   keywords: [
-    "Web Development",
-    "Portfolio",
-    "Digital Services",
-    "Web Design",
-    "UI/UX Design",
-    "Frontend Development",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Full Stack Developer",
-    "Creative Solutions",
+    "Video Editor",
+    "Motion Designer",
+    "Motion Graphics",
+    "Graphic Designer",
+    "Video Editing",
+    "Brand Films",
+    "Social Reels",
+    "Cinematic Editing",
+    "Visual Storytelling",
+    "Modinagar",
   ],
-  authors: [{ name: "Your Name" }],
-  creator: "Your Name",
-  publisher: "Your Name",
+  authors: [{ name: "Mohd Aasim" }],
+  creator: "Mohd Aasim",
+  publisher: "Mohd Aasim",
   formatDetection: {
     email: false,
     address: false,
@@ -58,10 +57,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: BASE_URL,
-    title: "Your Name - Professional Portfolio & Digital Services",
+    title: "Mohd Aasim - Video Editor, Motion Designer & Graphic Designer",
     description:
-      "Explore a portfolio featuring cutting-edge web development projects, creative designs, and innovative digital solutions.",
-    siteName: "Your Name",
+      "Explore a portfolio featuring brand films, social reels, and motion graphics that turn raw footage into stories worth watching.",
+    siteName: "Mohd Aasim",
     images: [
       {
         url: OG_IMAGE,
@@ -74,10 +73,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Your Name - Professional Portfolio & Digital Services",
+    title: "Mohd Aasim - Video Editor, Motion Designer & Graphic Designer",
     description:
-      "Explore a portfolio featuring cutting-edge web development projects, creative designs, and innovative digital solutions.",
-    creator: "@yourhandle",
+      "Explore a portfolio featuring brand films, social reels, and motion graphics that turn raw footage into stories worth watching.",
+    creator: "@mohdaasim",
     images: [
       {
         url: OG_IMAGE,

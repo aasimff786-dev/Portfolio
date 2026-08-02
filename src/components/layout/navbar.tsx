@@ -343,12 +343,12 @@ const Navbar: React.FC = () => {
                       Let&apos;s Talk
                     </span>
                     <motion.a
-                      href="mailto:you@example.com"
+                      href="mailto:aasimff786@gmail.com"
                       className="text-sm hover:text-primary transition-colors"
                       whileHover={{ x: 4 }}
                       transition={{ duration: 0.2 }}
                     >
-                      you@example.com
+                      aasimff786@gmail.com
                     </motion.a>
                   </div>
 
@@ -388,7 +388,7 @@ const Navbar: React.FC = () => {
                     <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
                       Based In
                     </span>
-                    <span className="text-sm">India</span>
+                    <span className="text-sm">Modinagar, India</span>
                     <span className="text-xs text-muted-foreground">
                       Available Worldwide
                     </span>

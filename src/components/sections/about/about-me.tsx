@@ -64,11 +64,11 @@ const AboutMe = () => {
             Featured Work
           </span>
           <span className="w-1 h-1 bg-foreground rounded-full" />
-          <span className="text-sm font-bold">2D Animator</span>
-          <span className="w-1 h-1 bg-foreground rounded-full" />
-          <span className="text-sm font-bold">Creative Director</span>
-          <span className="w-1 h-1 bg-foreground rounded-full" />
           <span className="text-sm font-bold">Video Editor</span>
+          <span className="w-1 h-1 bg-foreground rounded-full" />
+          <span className="text-sm font-bold">Motion Designer</span>
+          <span className="w-1 h-1 bg-foreground rounded-full" />
+          <span className="text-sm font-bold">Graphic Designer</span>
         </div>
       </motion.div>
 
@@ -85,15 +85,15 @@ const AboutMe = () => {
           </p>
           <div className="flex items-center gap-4 text-sm font-bold">
             <span className="hover:text-primary transition-colors cursor-pointer">
-              2D Animator
-            </span>
-            <span className="w-1 h-1 bg-foreground rounded-full" />
-            <span className="hover:text-primary transition-colors cursor-pointer">
-              Creative Director
-            </span>
-            <span className="w-1 h-1 bg-foreground rounded-full" />
-            <span className="hover:text-primary transition-colors cursor-pointer">
               Video Editor
+            </span>
+            <span className="w-1 h-1 bg-foreground rounded-full" />
+            <span className="hover:text-primary transition-colors cursor-pointer">
+              Motion Designer
+            </span>
+            <span className="w-1 h-1 bg-foreground rounded-full" />
+            <span className="hover:text-primary transition-colors cursor-pointer">
+              Graphic Designer
             </span>
           </div>
         </div>

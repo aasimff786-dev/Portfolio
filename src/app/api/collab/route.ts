@@ -37,8 +37,11 @@ export async function POST(req: NextRequest) {
     const safeMessage = escapeHtml(message);
 
     const { data, error } = await resend.emails.send({
-      from: "Your Name <you@example.com>",
-      to: ["you@example.com"],
+      // NOTE: using Resend's default onboarding sender since no custom
+      // domain is verified yet. Once you verify a domain in Resend,
+      // change this to something like "Mohd Aasim <hello@yourdomain.com>"
+      from: "Mohd Aasim <onboarding@resend.dev>",
+      to: ["aasimff786@gmail.com"],
       replyTo: email,
       subject: `New Collab Request — ${name}`,
       html: `<!DOCTYPE html>
@@ -51,7 +54,7 @@ export async function POST(req: NextRequest) {
 <body style="margin:0;padding:0;background:#080808;color:#f0f0ef;font-family:Georgia,'Times New Roman',serif;">
   <div style="max-width:600px;margin:0 auto;padding:48px 32px;">
 
-    <p style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.3em;color:#c93a2a;text-transform:uppercase;margin:0 0 16px;">✦ YOUR NAME × COLLAB</p>
+    <p style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.3em;color:#c93a2a;text-transform:uppercase;margin:0 0 16px;">✦ MOHD AASIM × COLLAB</p>
 
     <h1 style="font-size:48px;font-weight:normal;line-height:0.9;margin:0 0 28px;letter-spacing:-0.02em;">
       New<br/><span style="color:#c93a2a;">Request.</span>
@@ -84,7 +87,7 @@ export async function POST(req: NextRequest) {
     </table>
 
     <div style="margin-top:48px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.07);">
-      <p style="font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:0.25em;color:rgba(255,255,255,0.2);text-transform:uppercase;margin:0;">YOUR-DOMAIN.COM</p>
+      <p style="font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:0.25em;color:rgba(255,255,255,0.2);text-transform:uppercase;margin:0;">PORTFOLIO-AASIM5.VERCEL.APP</p>
     </div>
   </div>
 </body>

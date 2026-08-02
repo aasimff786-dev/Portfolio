@@ -173,7 +173,7 @@ const AboutSection = () => {
 
               <Image
                 src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop"
-                alt="Your Name — Creative Director"
+                alt="Mohd Aasim — Video Editor & Motion Designer"
                 fill
                 priority
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
@@ -212,7 +212,7 @@ const AboutSection = () => {
                 }}
                 className="text-4xl md:text-5xl font-black tracking-tighter leading-none"
               >
-                Your Name
+                Mohd Aasim
               </motion.h2>
 
               <motion.p
@@ -222,7 +222,7 @@ const AboutSection = () => {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="font-mono text-sm uppercase tracking-widest text-primary"
               >
-                Creative Director & Video Editor
+                Video Editor, Motion Designer & Graphic Designer
               </motion.p>
 
               <motion.p
@@ -232,9 +232,10 @@ const AboutSection = () => {
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="text-muted-foreground text-[15px] leading-relaxed max-w-xs"
               >
-                Crafting high-impact visuals for gaming, sports, and lifestyle
-                brands. Turning raw footage into stories that resonate and
-                convert.
+                Hi, I&apos;m Mohd Aasim — a passionate Video Editor and Motion
+                Graphics Creator from Modinagar. Every video has a story
+                waiting to be told, and my job is to make that story
+                impossible to look away from.
               </motion.p>
             </div>
 
@@ -247,11 +248,11 @@ const AboutSection = () => {
               className="flex flex-wrap gap-2"
             >
               {[
-                "2D Animation",
-                "Motion Design",
                 "Video Editing",
+                "Motion Design",
+                "Graphic Design",
                 "Color Grading",
-                "Brand Direction",
+                "Visual Storytelling",
               ].map((tag) => (
                 <span
                   key={tag}

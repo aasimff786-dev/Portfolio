@@ -87,10 +87,11 @@ export default function CreativeFooter() {
 
   const handleLetsTalkClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const cal = await getCalApi({ namespace: "30min" });
-    cal("modal", {
-      calLink: "your-username/30min",
-    });
+    // NOTE: Cal.com booking isn't set up yet — using mailto for now.
+    // Once you create a Cal.com account, replace this with:
+    // const cal = await getCalApi({ namespace: "30min" });
+    // cal("modal", { calLink: "your-cal-username/30min" });
+    window.location.href = "mailto:aasimff786@gmail.com";
   };
 
   return (
@@ -170,12 +171,12 @@ export default function CreativeFooter() {
                 />
               </div>
               <span className="text-xl font-bold tracking-tight">
-                Your Name
+                Mohd Aasim
               </span>
             </Link>
             <p className="max-w-xs text-muted-foreground text-sm leading-relaxed">
-              A creative agency crafting digital experiences that merge art with
-              functionality.
+              Video Editor, Motion Designer & Graphic Designer crafting
+              stories that are impossible to look away from.
             </p>
           </motion.div>
 
@@ -260,7 +261,7 @@ export default function CreativeFooter() {
           transition={{ delay: 0.2 }}
           className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/40 py-6 text-xs text-muted-foreground md:flex-row"
         >
-          <p>© {currentYear} Your Name. All rights reserved.</p>
+          <p>© {currentYear} Mohd Aasim. All rights reserved.</p>
           {/* <div className="flex gap-6">
             <Link href="#" className="hover:text-foreground transition-colors">
               Privacy Policy
