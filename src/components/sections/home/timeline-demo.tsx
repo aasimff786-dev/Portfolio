@@ -1,5 +1,6 @@
 import React from "react";
 import { Timeline } from "@/components/ui/timeline";
+import { FeatureCard } from "./features";
 import PhraseAnimation from "@/components/common/phrase-reveal";
 
 export function TimelineDemo() {
@@ -14,6 +15,31 @@ export function TimelineDemo() {
           <p className="mb-8 text-xs text-muted-foreground md:text-lg mt-1.5">
             <PhraseAnimation phrase="Transform your SaaS product into captivating demo videos. From feature highlights to onboarding tutorials, we create motion edits that convert viewers into customers and drive product adoption." />
           </p>
+          <div className="mx-auto grid gap-4 lg:grid-cols-2">
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://player.vimeo.com/video/1205812895?dnt=1"
+                loading="lazy"
+                title="SaaS Product Video Editing — Project One"
+                frameBorder={0}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://player.vimeo.com/video/1201779378?dnt=1"
+                loading="lazy"
+                title="SaaS Product Video Editing — Project Two"
+                frameBorder={0}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+          </div>
         </div>
       ),
     },
@@ -27,6 +53,31 @@ export function TimelineDemo() {
           <p className="mb-8 text-xs text-muted-foreground md:text-lg mt-1.5">
             <PhraseAnimation phrase="From original stories to scroll-stopping brand ads, transform concepts into 2D animations that simplify your message and capture your audience's attention instantly." />
           </p>
+          <div className="mx-auto grid gap-4 lg:grid-cols-2">
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://player.vimeo.com/video/1206189555?dnt=1"
+                loading="lazy"
+                title="2D Animation & Storytelling — Project One"
+                frameBorder={0}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://player.vimeo.com/video/1206179209?dnt=1"
+                loading="lazy"
+                title="2D Animation & Storytelling — Project Two"
+                frameBorder={0}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+          </div>
         </div>
       ),
     },
