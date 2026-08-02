@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
+import Player from "@vimeo/player";
 
 interface BeforeAfterSliderProps {
   beforeSrc: string; // image or video poster for the "raw" side
@@ -14,63 +15,12 @@ interface BeforeAfterSliderProps {
 }
 
 const vimeoEmbedSrc = (id: string) =>
-  `https://player.vimeo.com/video/${id}?background=1&autoplay=1&loop=1&muted=1&dnt=1`;
+  `https://player.vimeo.com/video/${id}?background=1&autoplay=0&loop=1&muted=1&dnt=1`;
 
-/** Renders an image, raw video, or background Vimeo embed — all full-bleed cover. */
-function MediaLayer({
-  vimeoId,
-  video,
-  image,
-  label,
-}: {
-  vimeoId?: string;
-  video?: string;
-  image: string;
-  label: string;
-}) {
-  if (vimeoId) {
-    return (
-      <iframe
-        src={vimeoEmbedSrc(vimeoId)}
-        loading="lazy"
-        className="pointer-events-none"
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          width: "max(100%, 177.78vh)",
-          height: "max(100%, 56.25vw)",
-          transform: "translate(-50%, -50%)",
-          border: 0,
-        }}
-        allow="autoplay; fullscreen"
-        title={label}
-      />
-    );
-  }
-  if (video) {
-    return (
-      <video
-        src={video}
-        poster={image}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-    );
-  }
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={image}
-      alt={label}
-      className="absolute inset-0 w-full h-full object-cover"
-      draggable={false}
-    />
-  );
-}
+/** How often (ms) we re-check and correct any drift between the two players. */
+const SYNC_INTERVAL_MS = 1500;
+/** Only correct drift bigger than this many seconds (avoids constant micro-seeks). */
+const DRIFT_TOLERANCE_S = 0.15;
 
 const BeforeAfterSlider = ({
   beforeSrc,
@@ -85,6 +35,11 @@ const BeforeAfterSlider = ({
   const wrapRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(50); // percentage
   const draggingRef = useRef(false);
+
+  const beforeIframeRef = useRef<HTMLIFrameElement>(null);
+  const afterIframeRef = useRef<HTMLIFrameElement>(null);
+  const beforePlayerRef = useRef<Player | null>(null);
+  const afterPlayerRef = useRef<Player | null>(null);
 
   const updateFromClientX = useCallback((clientX: number) => {
     const wrap = wrapRef.current;
@@ -109,6 +64,64 @@ const BeforeAfterSlider = ({
     draggingRef.current = false;
   };
 
+  // Wire up both Vimeo players, start them together, and keep them in sync.
+  useEffect(() => {
+    if (!beforeVimeoId || !afterVimeoId) return;
+    if (!beforeIframeRef.current || !afterIframeRef.current) return;
+
+    const beforePlayer = new Player(beforeIframeRef.current);
+    const afterPlayer = new Player(afterIframeRef.current);
+    beforePlayerRef.current = beforePlayer;
+    afterPlayerRef.current = afterPlayer;
+
+    let cancelled = false;
+    let syncTimer: ReturnType<typeof setInterval> | null = null;
+
+    Promise.all([beforePlayer.ready(), afterPlayer.ready()])
+      .then(() => {
+        if (cancelled) return;
+        // Make sure both start from frame zero, then play together.
+        return Promise.all([
+          beforePlayer.setCurrentTime(0),
+          afterPlayer.setCurrentTime(0),
+        ]);
+      })
+      .then(() => {
+        if (cancelled) return;
+        return Promise.all([beforePlayer.play(), afterPlayer.play()]);
+      })
+      .then(() => {
+        if (cancelled) return;
+        // Periodically correct any drift between the two — network/buffering
+        // can nudge them apart over time even though they started together.
+        syncTimer = setInterval(async () => {
+          try {
+            const [beforeTime, afterTime] = await Promise.all([
+              beforePlayer.getCurrentTime(),
+              afterPlayer.getCurrentTime(),
+            ]);
+            const drift = afterTime - beforeTime;
+            if (Math.abs(drift) > DRIFT_TOLERANCE_S) {
+              await beforePlayer.setCurrentTime(afterTime);
+            }
+          } catch {
+            // Player may be mid-teardown — safe to ignore.
+          }
+        }, SYNC_INTERVAL_MS);
+      })
+      .catch(() => {
+        // Autoplay can be blocked or the player can fail to load — the
+        // poster image fallback is still visible, so we just no-op here.
+      });
+
+    return () => {
+      cancelled = true;
+      if (syncTimer) clearInterval(syncTimer);
+      beforePlayerRef.current = null;
+      afterPlayerRef.current = null;
+    };
+  }, [beforeVimeoId, afterVimeoId]);
+
   return (
     <div className="w-full">
       <div
@@ -121,12 +134,43 @@ const BeforeAfterSlider = ({
       >
         {/* AFTER — full-bleed base layer, same size/position always */}
         <div className="absolute inset-0">
-          <MediaLayer
-            vimeoId={afterVimeoId}
-            video={afterVideo}
-            image={afterSrc}
-            label={afterLabel}
-          />
+          {afterVimeoId ? (
+            <iframe
+              ref={afterIframeRef}
+              src={vimeoEmbedSrc(afterVimeoId)}
+              loading="lazy"
+              className="pointer-events-none"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: "max(100%, 177.78vh)",
+                height: "max(100%, 56.25vw)",
+                transform: "translate(-50%, -50%)",
+                border: 0,
+              }}
+              allow="autoplay; fullscreen"
+              title={afterLabel}
+            />
+          ) : afterVideo ? (
+            <video
+              src={afterVideo}
+              poster={afterSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={afterSrc}
+              alt={afterLabel}
+              className="absolute inset-0 w-full h-full object-cover"
+              draggable={false}
+            />
+          )}
         </div>
 
         {/* BEFORE — identical full-bleed layer, masked via clip-path so it
@@ -135,12 +179,43 @@ const BeforeAfterSlider = ({
           className="absolute inset-0"
           style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
         >
-          <MediaLayer
-            vimeoId={beforeVimeoId}
-            video={beforeVideo}
-            image={beforeSrc}
-            label={beforeLabel}
-          />
+          {beforeVimeoId ? (
+            <iframe
+              ref={beforeIframeRef}
+              src={vimeoEmbedSrc(beforeVimeoId)}
+              loading="lazy"
+              className="pointer-events-none"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: "max(100%, 177.78vh)",
+                height: "max(100%, 56.25vw)",
+                transform: "translate(-50%, -50%)",
+                border: 0,
+              }}
+              allow="autoplay; fullscreen"
+              title={beforeLabel}
+            />
+          ) : beforeVideo ? (
+            <video
+              src={beforeVideo}
+              poster={beforeSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={beforeSrc}
+              alt={beforeLabel}
+              className="absolute inset-0 w-full h-full object-cover"
+              draggable={false}
+            />
+          )}
         </div>
 
         {/* Labels */}

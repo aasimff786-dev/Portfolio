@@ -332,9 +332,10 @@ const AboutScrollSection = () => {
                 data-reveal-line
                 className="mb-6 max-w-md text-sm leading-relaxed text-white/60 opacity-0 sm:text-base"
               >
-                7 years of turning design into motion — across brands, creators,
-                and culture-led stories. Built on one simple rule: quality over
-                quantity, always.
+                I help brands, businesses, and creators stand out with
+                high-quality video editing, motion graphics, and graphic
+                design — crafted with creativity, precision, and attention to
+                detail.
               </p>
 
               {/* Accent divider */}
