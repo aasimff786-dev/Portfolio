@@ -13,7 +13,7 @@ function buildImageUrl(index: number): string {
   return `/about-frames/frame-${String(index).padStart(2, "0")}.jpg`;
 }
 
-const aboutSectionImages = Array.from({ length: 47 }, (_, i) => ({ index: i }));
+const aboutSectionImages = Array.from({ length: 28 }, (_, i) => ({ index: i }));
 
 // Ratio: 5 units (images) + 2 units (text reveal) = 7 total → h-[700vh]
 const IMAGE_DURATION = 5;
@@ -152,7 +152,7 @@ const AboutScrollSection = () => {
         const frameToTime = (frame: number) =>
           (IMAGE_DURATION * frame) / lastFrame;
         const fadeStart = frameToTime(0);
-        const fadeEnd = frameToTime(30);
+        const fadeEnd = frameToTime(Math.round(lastFrame * 0.65));
 
         tl.to(
           scrollHint,
