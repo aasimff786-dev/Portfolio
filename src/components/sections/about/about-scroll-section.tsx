@@ -1,16 +1,23 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Video phase = pinned scroll distance while the background video plays
-// naturally (no scrubbing). Text phase = the bio card reveal afterwards.
-const VIDEO_PHASE = 3;
-const TEXT_PHASE = 2;
+// Real scroll-scrub sequence — 47 frames extracted from Mohd Aasim's own
+// footage, stored locally in /public/about-frames/.
+function buildImageUrl(index: number): string {
+  return `/about-frames/frame-${String(index).padStart(2, "0")}.jpg`;
+}
+
+const aboutSectionImages = Array.from({ length: 47 }, (_, i) => ({ index: i }));
+
+// Ratio: 5 units (images) + 2 units (text reveal) = 7 total → h-[700vh]
+const IMAGE_DURATION = 5;
+const TEXT_DURATION = 2;
 
 // oklch(59.71% 0.23 23.86) ≈ #c93a2a — site-wide red accent
 const redColor = "oklch(59.71% 0.23 23.86)";
@@ -18,13 +25,99 @@ const redColor = "oklch(59.71% 0.23 23.86)";
 const AboutScrollSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinWrapperRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const frameIndexRef = useRef({ value: 0 });
 
+  // Preload all images
+  useEffect(() => {
+    const loadImages = async () => {
+      const promises = aboutSectionImages.map((img, index) => {
+        return new Promise<HTMLImageElement>((resolve, reject) => {
+          const image = new window.Image();
+          image.crossOrigin = "anonymous";
+          image.src = buildImageUrl(img.index);
+          image.onload = () => {
+            imagesRef.current[index] = image;
+            resolve(image);
+          };
+          image.onerror = reject;
+        });
+      });
+
+      try {
+        await Promise.all(promises);
+        setImagesLoaded(true);
+      } catch (error) {
+        console.error("Error loading images:", error);
+      }
+    };
+
+    loadImages();
+  }, []);
+
+  // Render frame on canvas
+  const renderFrame = (index: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const img = imagesRef.current[index];
+    if (!img) return;
+
+    // Only touch canvas.width/height when the viewport actually changed.
+    // Assigning them resets + reallocates the entire backing store, so doing it
+    // on every scrubbed frame (as before) was the main source of scroll jank on
+    // phones. Reading them first and comparing keeps 99% of frames allocation-free.
+    if (canvas.width !== window.innerWidth) canvas.width = window.innerWidth;
+    if (canvas.height !== window.innerHeight)
+      canvas.height = window.innerHeight;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Calculate dimensions to cover the canvas (like object-fit: cover)
+    const imgRatio = img.width / img.height;
+    const canvasRatio = canvas.width / canvas.height;
+
+    let drawWidth, drawHeight, drawX, drawY;
+
+    if (canvasRatio > imgRatio) {
+      drawWidth = canvas.width;
+      drawHeight = canvas.width / imgRatio;
+      drawX = 0;
+      drawY = (canvas.height - drawHeight) / 2;
+    } else {
+      drawHeight = canvas.height;
+      drawWidth = canvas.height * imgRatio;
+      drawX = (canvas.width - drawWidth) / 2;
+      drawY = 0;
+    }
+
+    ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+  };
+
+  // GSAP ScrollTrigger animation
   useGSAP(
     () => {
-      if (!sectionRef.current || !pinWrapperRef.current || !textRef.current)
+      if (
+        !imagesLoaded ||
+        !sectionRef.current ||
+        !canvasRef.current ||
+        !pinWrapperRef.current ||
+        !textRef.current
+      )
         return;
 
+      // Render the first frame immediately
+      renderFrame(0);
+
+      // Single timeline: pin the whole wrapper (canvas + text overlay) for the
+      // entire section. Phase 1 → image frames, Phase 2 → text reveal.
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -35,20 +128,40 @@ const AboutScrollSection = () => {
         },
       });
 
-      // Scroll hint — stays visible for the first bit of the video phase,
-      // then fades out well before the text card starts revealing.
+      // Phase 1 — animate through all image frames
+      tl.to(
+        frameIndexRef.current,
+        {
+          value: aboutSectionImages.length - 1,
+          ease: "none",
+          duration: IMAGE_DURATION,
+          onUpdate: () => {
+            renderFrame(Math.round(frameIndexRef.current.value));
+          },
+        },
+        0,
+      );
+
+      // Scroll hint — stays visible until ~frame 15, then fades out over the
+      // next few frames so it never overlaps the rest of the sequence.
       const scrollHint =
         pinWrapperRef.current.querySelector<HTMLElement>("[data-scroll-hint]");
 
       if (scrollHint) {
+        const lastFrame = aboutSectionImages.length - 1;
+        const frameToTime = (frame: number) =>
+          (IMAGE_DURATION * frame) / lastFrame;
+        const fadeStart = frameToTime(0);
+        const fadeEnd = frameToTime(30);
+
         tl.to(
           scrollHint,
-          { opacity: 0, ease: "none", duration: VIDEO_PHASE * 0.5 },
-          0,
+          { opacity: 0, ease: "none", duration: fadeEnd - fadeStart },
+          fadeStart,
         );
       }
 
-      // Phase 2 — progressively reveal the about card once the video phase ends
+      // Phase 2 — progressively reveal the about card once last frame is held
       const overlay = textRef.current.querySelector<HTMLElement>(
         "[data-reveal-overlay]",
       );
@@ -57,8 +170,8 @@ const AboutScrollSection = () => {
         tl.fromTo(
           overlay,
           { opacity: 0 },
-          { opacity: 1, ease: "none", duration: TEXT_PHASE / 2 },
-          VIDEO_PHASE,
+          { opacity: 1, ease: "none", duration: TEXT_DURATION / 2 },
+          IMAGE_DURATION,
         );
       }
 
@@ -72,39 +185,52 @@ const AboutScrollSection = () => {
           opacity: 1,
           y: 0,
           ease: "power2.out",
-          duration: TEXT_PHASE,
-          stagger: textLines.length ? TEXT_PHASE / (textLines.length * 2) : 0,
+          duration: TEXT_DURATION,
+          stagger: textLines.length
+            ? TEXT_DURATION / (textLines.length * 2)
+            : 0,
         },
-        VIDEO_PHASE,
+        IMAGE_DURATION, // starts right after image phase ends
       );
+
+      // Handle window resize
+      const handleResize = () => {
+        renderFrame(Math.round(frameIndexRef.current.value));
+        ScrollTrigger.refresh();
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [imagesLoaded] },
   );
 
   return (
-    <div
-      ref={sectionRef}
-      className="relative"
-      style={{ height: `${(VIDEO_PHASE + TEXT_PHASE) * 100}vh` }}
-    >
-      {/* Pinned container — holds both the background video and text overlay */}
+    // 700vh = 500vh image scroll + 200vh text reveal
+    <div ref={sectionRef} className="relative h-[800vh]">
+      {/* Loading State — scoped to this section (absolute, not fixed) so the
+          47-frame preload never covers the hero/above-the-fold content */}
+      {!imagesLoaded && (
+        <div className="absolute inset-x-0 top-0 z-40 flex h-screen items-center justify-center bg-black">
+          <div className="flex flex-col items-center gap-4">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-white border-t-transparent" />
+            <p className="text-lg text-white">Loading images...</p>
+          </div>
+        </div>
+      )}
+
+      {/* Pinned container — holds both canvas and text overlay */}
       <div
         ref={pinWrapperRef}
-        className="relative h-screen w-full overflow-hidden bg-black"
+        className="relative h-screen w-full overflow-hidden"
       >
-        {/* Smooth looping background video — no scrubbing, just plays */}
-        <video
-          src="/about-bg.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        {/* Subtle grade so the video doesn't feel too raw/bright */}
-        <div className="absolute inset-0 bg-black/30" />
+        {/* Canvas for rendering frames */}
+        <canvas ref={canvasRef} className="h-full w-full" />
 
-        {/* Scroll hint — nudges the user to keep scrolling */}
+        {/* Scroll hint — nudges the user to keep scrolling to play the reel */}
         <div
           data-scroll-hint
           className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 md:inset-y-auto md:bottom-10 md:justify-start"
@@ -113,7 +239,7 @@ const AboutScrollSection = () => {
             className="text-[10px] uppercase tracking-[0.35em] text-white/70 md:text-xs"
             style={{ fontFamily: "'DM Mono', monospace" }}
           >
-            Scroll to continue
+            Scroll to play
           </span>
           <span
             className="flex h-9 w-5.5 items-start justify-center rounded-full border pt-2"
@@ -126,9 +252,9 @@ const AboutScrollSection = () => {
           </span>
         </div>
 
-        {/* Creative about card — revealed once the video phase ends */}
+        {/* Creative about card — revealed once the last frame is held */}
         <div ref={textRef} className="pointer-events-none absolute inset-0">
-          {/* Readability gradient over the video */}
+          {/* Readability gradient over the frame */}
           <div
             data-reveal-overlay
             className="absolute inset-0 bg-linear-to-r from-black/80 via-black/35 to-transparent opacity-0"
