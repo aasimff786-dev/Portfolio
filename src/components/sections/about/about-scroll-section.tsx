@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
-const redColor = "oklch(59.71% 0.23 23.86)"; // site-wide red accent
-
 // A row of "clip" segments — mimics an edit timeline in editing software.
 const TRACKS = [
   { clips: [22, 14, 30, 10, 18], tone: "primary" as const },
@@ -38,13 +36,14 @@ const AboutScrollSection = () => {
   }, [isInView]);
 
   return (
-    <section className="relative w-full overflow-hidden bg-black py-24 md:py-32">
-      {/* Faint dot-grid backdrop */}
+    <section className="relative w-full overflow-hidden bg-background py-24 md:py-32">
+      {/* Faint dot-grid backdrop — uses currentColor via text-foreground so it
+          inverts correctly between light & dark mode. */}
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 text-foreground opacity-[0.06]"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)",
+            "radial-gradient(currentColor 1px, transparent 1px)",
           backgroundSize: "26px 26px",
         }}
       />
@@ -54,12 +53,9 @@ const AboutScrollSection = () => {
         className="container relative mx-auto flex flex-col items-center gap-10 px-6"
       >
         {/* Timecode readout */}
-        <div
-          className="font-mono text-xs tracking-widest text-white/40 sm:text-sm"
-          style={{ fontFamily: "'DM Mono', monospace" }}
-        >
+        <div className="font-mono text-xs tracking-widest text-muted-foreground sm:text-sm">
           <span>{timecode}</span>
-          <span className="mx-2 text-white/20">/</span>
+          <span className="mx-2 text-muted-foreground/50">/</span>
           <span>00:09:00</span>
         </div>
 
@@ -70,13 +66,9 @@ const AboutScrollSection = () => {
             initial={{ left: "0%" }}
             animate={isInView ? { left: "100%" } : {}}
             transition={{ duration: 3, ease: "linear", delay: 0.2 }}
-            className="absolute -top-2 bottom-0 z-10 w-px"
-            style={{ backgroundColor: redColor }}
+            className="absolute -top-2 bottom-0 z-10 w-px bg-primary"
           >
-            <div
-              className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45"
-              style={{ backgroundColor: redColor }}
-            />
+            <div className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-primary" />
           </motion.div>
 
           <div className="flex flex-col gap-2.5 sm:gap-3">
@@ -95,20 +87,12 @@ const AboutScrollSection = () => {
                       ease: "easeOut",
                       delay: 0.15 + (rowIndex * 5 + clipIndex) * 0.06,
                     }}
-                    className="h-full origin-left rounded-sm"
-                    style={{
-                      width: `${width}%`,
-                      maxWidth: 220,
-                      backgroundColor:
-                        track.tone === "primary"
-                          ? "oklch(59.71% 0.23 23.86 / 0.55)"
-                          : "rgba(255,255,255,0.12)",
-                      border: `1px solid ${
-                        track.tone === "primary"
-                          ? "oklch(59.71% 0.23 23.86 / 0.8)"
-                          : "rgba(255,255,255,0.25)"
-                      }`,
-                    }}
+                    className={`h-full origin-left rounded-sm border ${
+                      track.tone === "primary"
+                        ? "border-primary/80 bg-primary/55"
+                        : "border-foreground/25 bg-foreground/10"
+                    }`}
+                    style={{ width: `${width}%`, maxWidth: 220 }}
                   />
                 ))}
               </div>
@@ -128,14 +112,10 @@ const AboutScrollSection = () => {
                 ease: "easeOut",
                 delay: 0.3 + i * 0.02,
               }}
-              className="w-1 origin-bottom rounded-full sm:w-1.5"
-              style={{
-                height: `${h}%`,
-                backgroundColor:
-                  i % 5 === 0
-                    ? "oklch(59.71% 0.23 23.86 / 0.9)"
-                    : "rgba(255,255,255,0.25)",
-              }}
+              className={`w-1 origin-bottom rounded-full sm:w-1.5 ${
+                i % 5 === 0 ? "bg-primary/90" : "bg-foreground/25"
+              }`}
+              style={{ height: `${h}%` }}
             />
           ))}
         </div>
@@ -147,56 +127,28 @@ const AboutScrollSection = () => {
           transition={{ duration: 0.7, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
           className="relative mt-6 w-full max-w-xl p-8 sm:p-10"
         >
-          <div
-            className="absolute left-0 top-0 h-8 w-8 border-l border-t"
-            style={{ borderColor: "oklch(59.71% 0.23 23.86 / 0.6)" }}
-          />
-          <div
-            className="absolute right-0 top-0 h-8 w-8 border-r border-t"
-            style={{ borderColor: "oklch(59.71% 0.23 23.86 / 0.6)" }}
-          />
-          <div
-            className="absolute bottom-0 left-0 h-8 w-8 border-b border-l"
-            style={{ borderColor: "oklch(59.71% 0.23 23.86 / 0.6)" }}
-          />
-          <div
-            className="absolute bottom-0 right-0 h-8 w-8 border-b border-r"
-            style={{ borderColor: "oklch(59.71% 0.23 23.86 / 0.6)" }}
-          />
+          <div className="absolute left-0 top-0 h-8 w-8 border-l border-t border-primary/60" />
+          <div className="absolute right-0 top-0 h-8 w-8 border-r border-t border-primary/60" />
+          <div className="absolute bottom-0 left-0 h-8 w-8 border-b border-l border-primary/60" />
+          <div className="absolute bottom-0 right-0 h-8 w-8 border-b border-r border-primary/60" />
 
-          <p
-            className="mb-5 text-center text-[10px] uppercase tracking-[0.3em] md:text-xs"
-            style={{ fontFamily: "'DM Mono', monospace", color: redColor }}
-          >
+          <p className="mb-5 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-primary md:text-xs">
             ✦ About Me ✦
           </p>
 
-          <h2 className="mb-5 text-center text-3xl font-bold leading-[1.08] text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mb-5 text-center text-3xl font-bold leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
             I&apos;d rather let the{" "}
-            <span
-              className="font-normal italic"
-              style={{
-                fontFamily: "'DM Serif Display', Georgia, serif",
-                color: redColor,
-              }}
-            >
-              work
-            </span>{" "}
-            do the talking.
+            <span className="font-normal italic text-primary">work</span> do
+            the talking.
           </h2>
 
-          <p className="mx-auto mb-6 max-w-md text-center text-sm leading-relaxed text-white/60 sm:text-base">
+          <p className="mx-auto mb-6 max-w-md text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
             I help brands, businesses, and creators stand out with
             high-quality video editing, motion graphics, and graphic design —
             crafted with creativity, precision, and attention to detail.
           </p>
 
-          <div
-            className="mx-auto mb-6 h-px w-24"
-            style={{
-              backgroundImage: `linear-gradient(to right, transparent, ${redColor}, transparent)`,
-            }}
-          />
+          <div className="mx-auto mb-6 h-px w-24 bg-gradient-to-r from-transparent via-primary to-transparent" />
 
           <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
             {[
@@ -208,28 +160,19 @@ const AboutScrollSection = () => {
             ].map((discipline, i) => (
               <span
                 key={discipline}
-                className="flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-white/50"
-                style={{ fontFamily: "'DM Mono', monospace" }}
+                className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground"
               >
-                {i !== 0 && (
-                  <span
-                    className="h-1 w-1 rounded-full"
-                    style={{ backgroundColor: redColor }}
-                  />
-                )}
+                {i !== 0 && <span className="h-1 w-1 rounded-full bg-primary" />}
                 {discipline}
               </span>
             ))}
           </div>
 
           <p className="text-center">
-            <span
-              className="text-xs uppercase tracking-[0.25em] text-white"
-              style={{ fontFamily: "'DM Mono', monospace" }}
-            >
+            <span className="font-mono text-xs uppercase tracking-[0.25em] text-foreground">
               Happy to collaborate
             </span>{" "}
-            <span style={{ color: redColor }}>✦</span>
+            <span className="text-primary">✦</span>
           </p>
         </motion.div>
       </div>
