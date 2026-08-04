@@ -12,13 +12,18 @@ const navLinks = [
   // { name: "Services", href: "#services", label: "What We Do" },
   { name: "Contact", href: "#contact", label: "Get In Touch" },
   { name: "About", href: "#about", label: "Who We Are" },
+  {
+    name: "Resume",
+    href: "/mohd-aasim-resume.pdf",
+    label: "Download Resume",
+  },
 ];
 
 const socialLinks = [
   { name: "YouTube", href: "https://youtube.com/@crcustudios" },
   { name: "Behance", href: "#" },
   { name: "Instagram", href: "https://www.instagram.com/aasim_1__" },
-  { name: "Discord", href: "https://discord.gg/yourinvite" },
+  { name: "Discord", href: "#" },
 ];
 
 const EASE_OPEN: [number, number, number, number] = [0.76, 0, 0.24, 1];

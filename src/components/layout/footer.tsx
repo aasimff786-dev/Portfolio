@@ -246,7 +246,7 @@ export default function CreativeFooter() {
                 label="Instagram"
               />
               <SocialLink
-                href="https://discord.gg/yourinvite"
+                href="#"
                 icon={FaDiscord}
                 label="Discord"
               />
