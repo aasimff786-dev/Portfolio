@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import Cal, { getCalApi } from "@calcom/embed-react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import PhraseAnimation from "@/components/common/phrase-reveal";
+import { Mail, MessageCircle } from "lucide-react";
+
+const WHATSAPP_NUMBER = "917861888848";
+const EMAIL = "aasimff786@gmail.com";
 
 const CalBooking = () => {
   const containerRef = useRef(null);
@@ -19,22 +22,14 @@ const CalBooking = () => {
   });
 
   // Parallax Logic
-  const yImage = useTransform(scrollYProgress, [0, 1], [-50, 50]);
-  const yCalendar = useTransform(scrollYProgress, [0, 1], [100, -100]);
-
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
-    })();
-  }, []);
+  const yCard = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
     <div
       ref={containerRef}
       className="w-full h-full py-10 md:py-20 overflow-hidden px-4 md:px-8"
     >
-      {/* 1. Heading with scroll-triggered reveal */}
+      {/* Heading with scroll-triggered reveal */}
       <div
         ref={headerRef}
         className="container relative z-10 mb-16 px-6 text-center mx-auto"
@@ -48,7 +43,7 @@ const CalBooking = () => {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mb-4 w-fit rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-xs font-medium text-primary uppercase tracking-widest"
         >
-          Book time
+          Let&apos;s talk
         </motion.div>
 
         {/* Heading */}
@@ -85,60 +80,56 @@ const CalBooking = () => {
           transition={{ duration: 0.7, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl"
         >
-          Schedule a 30-minute call to discuss your project and process.
+          Tell me about your project — I usually reply within a few hours.
         </motion.div>
       </div>
 
-      {/* 2. Responsive Container: Flex Column on Mobile, Block on Desktop */}
-      <div className="relative flex flex-col items-center lg:block max-w-7xl mx-auto">
-        {/* --- LAYER 1: The Image --- */}
-        <motion.div
-          style={{ y: yImage }}
-          className="relative z-0 w-full max-w-[400px] lg:max-w-none lg:mx-auto"
+      {/* CTA cards */}
+      <motion.div
+        style={{ y: yCard }}
+        className="mx-auto flex max-w-2xl flex-col gap-4 sm:flex-row"
+      >
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+            "Hi Aasim! I found your portfolio and I'd like to talk about a project.",
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex flex-1 items-center gap-4 rounded-2xl border border-border bg-muted/30 p-6 transition-colors hover:border-primary/50 hover:bg-primary/5"
         >
-          <img
-            src={"/ichigo2.png"}
-            alt="Profile photo"
-            className="block mx-auto object-cover w-full h-auto"
-          />
-        </motion.div>
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#25D366]/15">
+            <MessageCircle className="size-5 text-[#25D366]" />
+          </span>
+          <span>
+            <span className="block font-semibold text-foreground">
+              Message on WhatsApp
+            </span>
+            <span className="block text-sm text-muted-foreground">
+              Fastest way to reach me
+            </span>
+          </span>
+        </a>
 
-        {/* --- LAYER 2: The Overlays --- */}
-        {/* Attached to yImage so they stick to the image during parallax */}
-        <motion.div
-          style={{ y: yImage }}
-          className="absolute -top-1 w-full h-32 md:h-60 bg-gradient-to-b from-background to-transparent pointer-events-none z-10"
-        />
-        <motion.div
-          style={{ y: yImage }}
-          className="absolute -bottom-1 w-full h-32 md:h-60 bg-gradient-to-t from-background to-transparent pointer-events-none z-10"
-        />
-
-        {/* --- LAYER 3: The Calendar --- */}
-        {/* 
-           Mobile: Relative position, margin-top, centered width 
-           Desktop (lg): Absolute position, right aligned
-        */}
-        <motion.div
-          style={{ y: yCalendar }}
-          className="
-            relative z-20 mt-4 w-full max-w-md 
-            lg:absolute lg:top-14 lg:right-0 lg:mt-0 lg:w-[450px]
-          "
+        <a
+          href={`mailto:${EMAIL}`}
+          className="group flex flex-1 items-center gap-4 rounded-2xl border border-border bg-muted/30 p-6 transition-colors hover:border-primary/50 hover:bg-primary/5"
         >
-          <div className="bg-background/50 backdrop-blur-sm rounded-xl p-2 md:p-0">
-            <Cal
-              namespace="30min"
-              calLink="your-username/30min"
-              // Change fixed width to 100% so the parent div controls the size
-              style={{ width: "100%", height: "280px", overflowX: "scroll" }}
-              config={{ layout: "month_view" }}
-            />
-          </div>
-        </motion.div>
-      </div>
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/15">
+            <Mail className="size-5 text-primary" />
+          </span>
+          <span>
+            <span className="block font-semibold text-foreground">
+              Send an Email
+            </span>
+            <span className="block text-sm text-muted-foreground">
+              {EMAIL}
+            </span>
+          </span>
+        </a>
+      </motion.div>
     </div>
   );
 };
 
 export default CalBooking;
+
