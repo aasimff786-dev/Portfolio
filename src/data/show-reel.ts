@@ -51,9 +51,9 @@ export const showRealData: showReelI[] = [
   },
   {
     title: "Project Three",
-    provider: "vimeo",
-    videoId: "000000000", // TODO: replace with your Vimeo ID
-    thumbnail: vimeoThumb("000000000"),
+    provider: "youtube",
+    videoId: "I-ih-2UrmiU", // https://youtu.be/I-ih-2UrmiU
+    thumbnail: youtubeThumb("I-ih-2UrmiU"),
     stats: {
       views: 100000,
       likes: 10000,

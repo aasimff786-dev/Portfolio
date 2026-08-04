@@ -31,7 +31,7 @@ const ClientLogosSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative h-10 w-32 grayscale opacity-70 transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-12 sm:w-36"
+              className="relative h-16 w-48 grayscale opacity-70 transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-20 sm:w-56"
             >
               <Image
                 src={client.logo}
