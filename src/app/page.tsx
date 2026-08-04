@@ -13,6 +13,7 @@ import AboutScrollSection from "@/components/sections/about/about-scroll-section
 import GraphicDesignSection from "@/components/sections/home/graphic-design";
 import ColorWorkSection from "@/components/sections/home/color-work";
 import ToolsSection from "@/components/sections/home/tools-section";
+import ClientLogosSection from "@/components/sections/home/client-logos";
 
 export default function Home() {
   // The Preloader owns the (60fps) load-progress state internally so those
@@ -42,6 +43,9 @@ export default function Home() {
       <section id="about" className="">
         <AboutScrollSection />
       </section>
+
+      {/* Client Logos */}
+      <ClientLogosSection />
 
       {/* <div className="w-full scroll-mt-24" id="services">
         <LogoCloud />

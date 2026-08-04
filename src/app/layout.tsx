@@ -10,6 +10,7 @@ import StructuredData from "@/components/common/structured-data";
 import Analytics from "@/components/common/analytics";
 import ConsoleLog from "@/components/common/console-log";
 import CustomCursor from "@/components/ui/custom-cursor";
+import WhatsAppButton from "@/components/common/whatsapp-button";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -168,6 +169,7 @@ export default function RootLayout({
             <FooterSection />
             {/* <FloatingDockDemo /> */}
           </LenisWrapper>
+          <WhatsAppButton />
         </ThemeProvider>
       </body>
     </html>
