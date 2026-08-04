@@ -14,7 +14,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const PROJECT_TYPES = ["BRAND", "WEB", "MOTION", "ALL OF THE ABOVE"] as const;
+const PROJECT_TYPES = ["VIDEO EDIT", "MOTION GRAPHICS", "GRAPHIC DESIGN", "ALL OF THE ABOVE"] as const;
 
 const RED = "oklch(59.71% 0.23 23.86)";
 const RED_RGBA = "rgba(201, 58, 42,";
@@ -241,7 +241,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                     textTransform: "uppercase",
                   }}
                 >
-                  ✦ YOUR NAME
+                  ✦ MOHD AASIM
                 </span>
 
                 <motion.button
@@ -358,7 +358,7 @@ export default function CollabModal({ isOpen, onClose }: Props) {
                       maxWidth: "260px",
                     }}
                   >
-                    We craft digital experiences that demand attention.
+                    I craft videos and visuals that demand attention.
                     Let&apos;s build something worth remembering.
                   </motion.p>
 

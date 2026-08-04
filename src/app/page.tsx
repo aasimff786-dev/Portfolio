@@ -13,6 +13,7 @@ import AboutScrollSection from "@/components/sections/about/about-scroll-section
 import GraphicDesignSection from "@/components/sections/home/graphic-design";
 import ColorWorkSection from "@/components/sections/home/color-work";
 import ToolsSection from "@/components/sections/home/tools-section";
+import SkillBarsSection from "@/components/sections/home/skill-bars";
 import ClientLogosSection from "@/components/sections/home/client-logos";
 
 export default function Home() {
@@ -65,6 +66,9 @@ export default function Home() {
 
       {/* Software / Tools */}
       <ToolsSection />
+
+      {/* Skill Levels */}
+      <SkillBarsSection />
 
       {/* Graphic Design Showcase */}
       <GraphicDesignSection />
