@@ -15,9 +15,9 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { name: "YouTube", href: "https://www.youtube.com/@yourusername" },
-  { name: "Behance", href: "https://www.behance.net/yourusername" },
-  { name: "Instagram", href: "https://www.instagram.com/yourusername" },
+  { name: "YouTube", href: "https://youtube.com/@crcustudios" },
+  { name: "Behance", href: "#" },
+  { name: "Instagram", href: "https://www.instagram.com/aasim_1__" },
   { name: "Discord", href: "https://discord.gg/yourinvite" },
 ];
 

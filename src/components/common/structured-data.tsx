@@ -11,10 +11,9 @@ export default function StructuredData() {
       "Video Editor, Motion Designer and Graphic Designer from Modinagar, crafting brand films, social reels, and cinematic edits.",
     jobTitle: "Video Editor & Motion Designer",
     sameAs: [
-      // Add your social media profiles
-      "https://github.com/yourusername",
-      "https://linkedin.com/in/yourusername",
-      "https://twitter.com/yourhandle",
+      "https://www.instagram.com/aasim_1__",
+      "https://youtube.com/@crcustudios",
+      // TODO: add Behance/LinkedIn/GitHub/Twitter once you have them
     ],
     knowsAbout: [
       "Video Editing",

@@ -231,17 +231,17 @@ export default function CreativeFooter() {
             </h3>
             <div className="flex flex-wrap gap-2">
               <SocialLink
-                href="https://www.youtube.com/@yourusername"
+                href="https://youtube.com/@crcustudios"
                 icon={FaYoutube}
                 label="YouTube"
               />
               <SocialLink
-                href="https://www.behance.net/yourusername"
+                href="#"
                 icon={FaBehance}
                 label="Behance"
               />
               <SocialLink
-                href="https://www.instagram.com/yourusername"
+                href="https://www.instagram.com/aasim_1__"
                 icon={FaInstagram}
                 label="Instagram"
               />
