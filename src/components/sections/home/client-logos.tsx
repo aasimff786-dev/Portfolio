@@ -6,8 +6,12 @@ import { motion } from "framer-motion";
 // Add more clients here as you work with them — each just needs a name and
 // a logo path from /public/clients/.
 const clients = [
-  { name: "Hindflix", logo: "/clients/hindflix.png" },
-  { name: "BeastBros Animations", logo: "/clients/beastbros-animations.png" },
+  { name: "Hindflix", logo: "/clients/hindflix.png", showLabel: false },
+  {
+    name: "BeastBros Animations",
+    logo: "/clients/beastbros-animations.png",
+    showLabel: true,
+  },
 ];
 
 const ClientLogosSection = () => {
@@ -24,7 +28,7 @@ const ClientLogosSection = () => {
           Worked With
         </motion.p>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-14 gap-y-8">
+        <div className="flex flex-wrap items-start justify-center gap-x-14 gap-y-8">
           {clients.map((client, i) => (
             <motion.div
               key={client.name}
@@ -32,15 +36,24 @@ const ClientLogosSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative h-20 w-56 grayscale opacity-70 transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-24 sm:w-64"
+              className="flex flex-col items-center gap-2"
             >
-              <Image
-                src={client.logo}
-                alt={client.name}
-                fill
-                sizes="150px"
-                className="object-contain"
-              />
+              <div className="relative h-20 w-56 grayscale opacity-70 transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-24 sm:w-64">
+                <Image
+                  src={client.logo}
+                  alt={client.name}
+                  fill
+                  sizes="150px"
+                  className="object-contain"
+                />
+              </div>
+              <span
+                className={`font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground ${
+                  client.showLabel ? "" : "sr-only"
+                }`}
+              >
+                {client.name}
+              </span>
             </motion.div>
           ))}
         </div>
