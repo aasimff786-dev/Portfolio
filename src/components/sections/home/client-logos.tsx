@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 // a logo path from /public/clients/.
 const clients = [
   { name: "Hindflix", logo: "/clients/hindflix.png" },
+  { name: "BeastBros Animations", logo: "/clients/beastbros-animations.png" },
 ];
 
 const ClientLogosSection = () => {
@@ -31,7 +32,7 @@ const ClientLogosSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative h-16 w-48 grayscale opacity-70 transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-20 sm:w-56"
+              className="relative h-20 w-56 grayscale opacity-70 transition-all duration-300 hover:opacity-100 hover:grayscale-0 sm:h-24 sm:w-64"
             >
               <Image
                 src={client.logo}

@@ -81,6 +81,19 @@ export function TimelineDemo() {
         </div>
       ),
     },
+    {
+      title: "AI Videos",
+      content: (
+        <div>
+          <h3 className="text-xs font-normal text-neutral-800 md:text-3xl dark:text-neutral-200">
+            <PhraseAnimation phrase="Ideas  Brought  To  Life  With  AI" />
+          </h3>
+          <p className="mb-8 text-xs text-muted-foreground md:text-lg mt-1.5">
+            <PhraseAnimation phrase="Blending AI-generated visuals with hands-on editing to create fast, striking videos — from concept to final cut, powered by the latest AI tools." />
+          </p>
+        </div>
+      ),
+    },
     // {
     //   title: "High-Impact Reels  for  Real Growth",
     //   content: (
