@@ -91,6 +91,33 @@ export function TimelineDemo() {
           <p className="mb-8 text-xs text-muted-foreground md:text-lg mt-1.5">
             <PhraseAnimation phrase="Blending AI-generated visuals with hands-on editing to create fast, striking videos — from concept to final cut, powered by the latest AI tools." />
           </p>
+          <div className="mx-auto grid gap-4 lg:grid-cols-2">
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://www.youtube.com/embed/1b4XVpY66KE?si=5A1bU-8y6S3iBW5B"
+                loading="lazy"
+                title="AI Videos — Project One"
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://www.youtube.com/embed/3VvSuxnrPig?si=GxmEBKavfxr1Q-DY"
+                loading="lazy"
+                title="AI Videos — Project Two"
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+          </div>
         </div>
       ),
     },
