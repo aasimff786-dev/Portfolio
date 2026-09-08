@@ -48,7 +48,7 @@ const AboutMe = () => {
         <img
           src="/aasim-hero.png"
           alt="Mohd Aasim — Video Editor & Motion Designer"
-          className="relative w-[125vw] md:w-[60vw] lg:w-[40vw] h-[75vh] md:h-[75dvh] object-contain object-bottom rounded-3xl"
+          className="relative w-[130vw] md:w-[64vw] lg:w-[44vw] h-[80vh] md:h-[80dvh] object-contain object-bottom rounded-3xl"
         />
       </motion.div>
 
