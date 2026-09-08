@@ -46,8 +46,8 @@ const AboutMe = () => {
         {/* Swap for your own hero video/photo — see README for the full asset list */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/ichigo.png"
-          alt="Profile photo"
+          src="/aasim-hero.png"
+          alt="Mohd Aasim — Video Editor & Motion Designer"
           className="relative w-[125vw] md:w-[60vw] lg:w-[40vw] h-[75vh] md:h-[75dvh] object-contain object-bottom rounded-3xl"
         />
       </motion.div>
