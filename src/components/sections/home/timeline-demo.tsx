@@ -44,7 +44,7 @@ export function TimelineDemo() {
       ),
     },
     {
-      title: "2D Animation & Storytelling ",
+      title: "Storytelling & Explanation Videos",
       content: (
         <div>
           <h3 className="text-xs font-normal text-neutral-800 md:text-3xl dark:text-neutral-200">
@@ -58,7 +58,7 @@ export function TimelineDemo() {
               <iframe
                 src="https://player.vimeo.com/video/1206189555?dnt=1"
                 loading="lazy"
-                title="2D Animation & Storytelling — Project One"
+                title="Storytelling & Explanation Videos — Project One"
                 frameBorder={0}
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                 allowFullScreen
@@ -70,9 +70,22 @@ export function TimelineDemo() {
               <iframe
                 src="https://player.vimeo.com/video/1206179209?dnt=1"
                 loading="lazy"
-                title="2D Animation & Storytelling — Project Two"
+                title="Storytelling & Explanation Videos — Project Two"
                 frameBorder={0}
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+
+            <FeatureCard className="p-0 w-full lg:col-span-2">
+              <iframe
+                src="https://www.youtube.com/embed/x2oY6me-tns"
+                loading="lazy"
+                title="Storytelling & Explanation Videos — Project Three"
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
                 className="aspect-video w-full"
               ></iframe>
@@ -94,7 +107,7 @@ export function TimelineDemo() {
           <div className="mx-auto grid gap-4 lg:grid-cols-2">
             <FeatureCard className="p-0 w-full">
               <iframe
-                src="https://www.youtube.com/embed/1b4XVpY66KE?si=5A1bU-8y6S3iBW5B"
+                src="https://www.youtube.com/embed/Fa1F7H2PBNk?si=F-Txa9xnOzVvckoD"
                 loading="lazy"
                 title="AI Videos — Project One"
                 frameBorder={0}
@@ -107,9 +120,22 @@ export function TimelineDemo() {
 
             <FeatureCard className="p-0 w-full">
               <iframe
-                src="https://www.youtube.com/embed/3VvSuxnrPig?si=GxmEBKavfxr1Q-DY"
+                src="https://www.youtube.com/embed/1b4XVpY66KE?si=5A1bU-8y6S3iBW5B"
                 loading="lazy"
                 title="AI Videos — Project Two"
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+
+            <FeatureCard className="p-0 w-full lg:col-span-2">
+              <iframe
+                src="https://www.youtube.com/embed/3VvSuxnrPig?si=GxmEBKavfxr1Q-DY"
+                loading="lazy"
+                title="AI Videos — Project Three"
                 frameBorder={0}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
