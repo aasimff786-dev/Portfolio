@@ -78,11 +78,24 @@ export function TimelineDemo() {
               ></iframe>
             </FeatureCard>
 
-            <FeatureCard className="p-0 w-full lg:col-span-2">
+            <FeatureCard className="p-0 w-full">
               <iframe
                 src="https://www.youtube.com/embed/x2oY6me-tns"
                 loading="lazy"
                 title="Storytelling & Explanation Videos — Project Three"
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://www.youtube.com/embed/RbLabW7gfJA"
+                loading="lazy"
+                title="Storytelling & Explanation Videos — Project Four"
                 frameBorder={0}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
