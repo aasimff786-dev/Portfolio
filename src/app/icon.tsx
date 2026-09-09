@@ -12,7 +12,7 @@ export default function Icon() {
   return new ImageResponse(
     <div
       style={{
-        background: "#000",
+        background: "#0a0a0a",
         width: "100%",
         height: "100%",
         display: "flex",
@@ -22,12 +22,25 @@ export default function Icon() {
     >
       <div
         style={{
-          width: 16,
-          height: 16,
+          width: 26,
+          height: 26,
           borderRadius: "50%",
-          background: "#ef4444",
+          border: "2.5px solid #c93a2a",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-      />
+      >
+        <div
+          style={{
+            width: 0,
+            height: 0,
+            borderLeft: "6px solid transparent",
+            borderRight: "6px solid transparent",
+            borderBottom: "10px solid #c93a2a",
+          }}
+        />
+      </div>
     </div>,
     {
       ...size,
