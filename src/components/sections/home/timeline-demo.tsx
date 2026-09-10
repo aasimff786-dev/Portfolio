@@ -144,7 +144,7 @@ export function TimelineDemo() {
               ></iframe>
             </FeatureCard>
 
-            <FeatureCard className="p-0 w-full lg:col-span-2">
+            <FeatureCard className="p-0 w-full">
               <iframe
                 src="https://www.youtube.com/embed/3VvSuxnrPig?si=GxmEBKavfxr1Q-DY"
                 loading="lazy"
@@ -152,6 +152,18 @@ export function TimelineDemo() {
                 frameBorder={0}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://player.vimeo.com/video/1225567260?dnt=1"
+                loading="lazy"
+                title="AI Videos — Project Four"
+                frameBorder={0}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
                 allowFullScreen
                 className="aspect-video w-full"
               ></iframe>
@@ -170,6 +182,31 @@ export function TimelineDemo() {
           <p className="mb-8 text-xs text-muted-foreground md:text-lg mt-1.5">
             <PhraseAnimation phrase="Trend-driven edits synced to phonk and viral audio — built for maximum scroll-stopping impact on reels and shorts." />
           </p>
+          <div className="mx-auto grid gap-4 lg:grid-cols-2">
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://player.vimeo.com/video/1225568724?dnt=1"
+                loading="lazy"
+                title="Trends Follows & Phonk Edits — Project One"
+                frameBorder={0}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+
+            <FeatureCard className="p-0 w-full">
+              <iframe
+                src="https://player.vimeo.com/video/1225570347?dnt=1"
+                loading="lazy"
+                title="Trends Follows & Phonk Edits — Project Two"
+                frameBorder={0}
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                allowFullScreen
+                className="aspect-video w-full"
+              ></iframe>
+            </FeatureCard>
+          </div>
         </div>
       ),
     },
