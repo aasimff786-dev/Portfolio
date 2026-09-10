@@ -312,6 +312,18 @@ const AboutSection = () => {
                 description="Video edits, motion graphics, and designs delivered — always ahead of deadline."
                 delay={0.25}
               />
+
+              {/* Views — full-width highlighted */}
+              <div className="sm:col-span-2">
+                <MetricCard
+                  value={30}
+                  suffix="M+"
+                  label="Views Generated"
+                  description="Combined views across edited videos and reels, pulled from YouTube & Instagram analytics."
+                  highlight
+                  delay={0.35}
+                />
+              </div>
             </div>
 
             {/* Footnote */}
