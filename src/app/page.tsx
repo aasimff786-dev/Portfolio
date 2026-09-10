@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import AboutMe from "@/components/sections/about/about-me";
+import AboutSection from "@/components/sections/about/about-section";
 import CalBooking from "@/components/sections/home/cal-booking";
 import Testimonials from "@/components/sections/home/testimonials";
 import { TimelineDemo } from "@/components/sections/home/timeline-demo";
@@ -45,6 +46,9 @@ export default function Home() {
       <section id="about" className="">
         <AboutScrollSection />
       </section>
+
+      {/* About Section (photo, tags, stats) */}
+      <AboutSection />
 
       {/* Client Logos */}
       <ClientLogosSection />
