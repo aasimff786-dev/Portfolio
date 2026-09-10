@@ -172,7 +172,7 @@ const AboutSection = () => {
               <div className="absolute -inset-px rounded-3xl border border-primary/15 z-20 pointer-events-none" />
 
               <Image
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop"
+                src="/aasim-about-photo.png"
                 alt="Mohd Aasim — Video Editor & Motion Designer"
                 fill
                 priority
