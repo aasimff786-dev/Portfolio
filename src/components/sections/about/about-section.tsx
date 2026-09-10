@@ -316,7 +316,7 @@ const AboutSection = () => {
               {/* Views — full-width highlighted */}
               <div className="sm:col-span-2">
                 <MetricCard
-                  value={30}
+                  value={60}
                   suffix="M+"
                   label="Views Generated"
                   description="Combined views across edited videos and reels, pulled from YouTube & Instagram analytics."
